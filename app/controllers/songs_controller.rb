@@ -10,6 +10,10 @@ class SongsController < ApplicationController
 
   end
 
+# -----------------------------------------
+# -----------------------------------------
+
+
   def new
     @song = Song.new
   end
@@ -27,7 +31,51 @@ class SongsController < ApplicationController
     end
   end
 
+  # -----------------------------------------
+  # -----------------------------------------
+def edit
+@song = Song.find(params[:id])
+end
 
+
+def destroy
+@song = Song.find(params[:id])
+@song.destroy
+
+end
+
+
+def update
+  @song = Song.find(params[:id])
+
+  respond_to do |format|
+    if @song.update!(passing_info)
+      format.html {redirect_to @song, notice: 'Comment was successfully updated.'}
+      format.json {render json: @song}
+    else
+      format.html { render :new }
+      format.json { render json: @song.erros, status: :unprocessable_entity}
+    end
+
+  end
+end
+
+
+
+
+
+  # -----------------------------------------
+  # -----------------------------------------
+
+  def show
+    @song = Song.find(params[:id])
+
+    respond_to do |format|
+      format.html {render :show}
+      format.json {render json: @song}
+    end
+
+  end
 
 
 
